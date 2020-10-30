@@ -1,0 +1,52 @@
+scalar LocalDate
+scalar LocalDateTime
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+ 
+type Query {
+    lists: [List!]!
+    list(id: ID!): List!
+    todos: [Todo!]!
+    todo(id: ID!): Todo!
+    findAllByList_Id(id: ID!) : [Todo!]!
+}
+ 
+type Mutation {
+    createTodo(todoInput: TodoInput!): Todo!
+    updateTodo(todoInput: TodoInput!, id: ID!): Todo!
+    deleteTodo(id: ID!): Todo!
+    
+    createList(listInput: ListInput!): List!
+    updateList(listInput: ListInput!, id: ID!): List!
+    deleteList(id: ID!): List!
+}
+ 
+type Todo {
+    id: ID!
+    label: String!
+    dueDate: LocalDate
+    done: Boolean!
+    creationDate: LocalDateTime
+    list: List!
+}
+type List {
+    id: ID!
+    label: String!
+    creationDate: LocalDateTime
+    todos: [Todo!]!
+}
+ 
+input TodoInput {
+    label: String!
+    done: Boolean!
+    dueDate: LocalDate
+    listId: ID!
+}
+ 
+input ListInput {
+    label: String!
+}
+
